@@ -89,6 +89,8 @@ __pycache__/
 venv/
 env/
 .venv/
+*.docx
+*.pdf
 pip-log.txt
 pip-delete-this-directory.txt
 .tox/

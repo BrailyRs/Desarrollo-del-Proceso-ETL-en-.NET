@@ -38,11 +38,42 @@ namespace ETLWorkerService.Application.Services
 
             await LoadDimCliente(clients);
             await LoadDimProducto(products);
-            await LoadDimFuente();
+            await LoadDimFuente(socialComments, surveys, webReviews);
             await LoadDimClasificacion();
+            await LoadDimFecha(socialComments, surveys, webReviews);
             await LoadFactOpiniones(socialComments, surveys, webReviews);
 
             _logger.LogInformation("ETL process finished at: {time}", DateTimeOffset.Now);
+        }
+
+        private async Task LoadDimFecha(IEnumerable<SocialComment> socialComments, IEnumerable<Survey> surveys, IEnumerable<WebReview> webReviews)
+        {
+            var allDates = new List<DateTime>();
+            allDates.AddRange(socialComments.Select(sc => sc.Fecha));
+            allDates.AddRange(surveys.Select(s => s.Fecha));
+            allDates.AddRange(webReviews.Select(wr => wr.Fecha));
+
+            var uniqueDates = allDates.Distinct().ToList();
+            var existingFechas = _dwContext.DimFechas.ToDictionary(df => df.FechaKey, df => df);
+
+            foreach (var date in uniqueDates)
+            {
+                var fechaKey = int.Parse(date.ToString("yyyyMMdd"));
+                if (!existingFechas.ContainsKey(fechaKey))
+                {
+                    _dwContext.DimFechas.Add(new DimFecha
+                    {
+                        FechaKey = fechaKey,
+                        Fecha = date,
+                        Dia = date.Day,
+                        Mes = date.Month,
+                        Anio = date.Year,
+                        Trimestre = (date.Month + 2) / 3,
+                        DiaDeLaSemana = (int)date.DayOfWeek
+                    });
+                }
+            }
+            await _dwContext.SaveChangesAsync();
         }
 
         private async Task LoadDimCliente(IEnumerable<Client> clients)
@@ -83,18 +114,33 @@ namespace ETLWorkerService.Application.Services
             await _dwContext.SaveChangesAsync();
         }
 
-        private async Task LoadDimFuente()
+        private async Task LoadDimFuente(IEnumerable<SocialComment> socialComments, IEnumerable<Survey> surveys, IEnumerable<WebReview> webReviews)
         {
-            var existingFuentes = _dwContext.DimFuentes.Where(f => f.NombreFuente != null).ToDictionary(f => f.NombreFuente, f => f);
-            var fuentes = _rContext.Sources.ToList();
+            var existingFuentes = _dwContext.DimFuentes.Where(f => f.NombreFuente != null).ToDictionary(f => f.NombreFuente!, f => f);
 
-            foreach (var fuente in fuentes)
+            // Collect sources from relational context
+            var sourcesFromRContext = _rContext.Sources.Select(s => s.Nombre).Where(n => n != null).ToList();
+
+            // Collect sources from extracted data
+            var sourcesFromSocialComments = socialComments.Select(sc => sc.Fuente).Where(f => f != null).ToList();
+            var sourcesFromSurveys = surveys.Select(s => "Encuesta").ToList();
+            var sourcesFromWebReviews = webReviews.Select(wr => "WebReview").ToList(); // Hardcoded "WebReview" source
+
+            var allUniqueSources = sourcesFromRContext
+                                    .Union(sourcesFromSocialComments)
+                                    .Union(sourcesFromSurveys)
+                                    .Union(sourcesFromWebReviews)
+                                    .Append("Unknown") // Add "Unknown" as a default source
+                                    .Distinct()
+                                    .ToList();
+
+            foreach (var sourceName in allUniqueSources)
             {
-                if (fuente.Nombre != null && !existingFuentes.ContainsKey(fuente.Nombre))
+                if (sourceName != null && !existingFuentes.ContainsKey(sourceName))
                 {
                     _dwContext.DimFuentes.Add(new DimFuente
                     {
-                        NombreFuente = fuente.Nombre
+                        NombreFuente = sourceName
                     });
                 }
             }
@@ -103,7 +149,7 @@ namespace ETLWorkerService.Application.Services
 
         private async Task LoadDimClasificacion()
         {
-            var existingClasificaciones = _dwContext.DimClasificaciones.Where(c => c.NombreClasificacion != null).ToDictionary(c => c.NombreClasificacion, c => c);
+            var existingClasificaciones = _dwContext.DimClasificaciones.Where(c => c.NombreClasificacion != null).ToDictionary(c => c.NombreClasificacion!, c => c);
             var clasificaciones = _rContext.Classifications.ToList();
 
             foreach (var clasificacion in clasificaciones)
@@ -123,17 +169,17 @@ namespace ETLWorkerService.Application.Services
         {
             var dimClientes = _dwContext.DimClientes.ToDictionary(c => c.IdCliente, c => c.ClienteKey);
             var dimProductos = _dwContext.DimProductos.ToDictionary(p => p.IdProducto, p => p.ProductoKey);
-            var dimFuentes = _dwContext.DimFuentes.Where(f => f.NombreFuente != null).ToDictionary(f => f.NombreFuente, f => f.FuenteKey);
-            var dimClasificaciones = _dwContext.DimClasificaciones.Where(c => c.NombreClasificacion != null).ToDictionary(c => c.NombreClasificacion, c => c.ClasificacionKey);
+            var dimFuentes = _dwContext.DimFuentes.Where(f => f.NombreFuente != null).ToDictionary(f => f.NombreFuente!, f => f.FuenteKey);
+            var dimClasificaciones = _dwContext.DimClasificaciones.Where(c => c.NombreClasificacion != null).ToDictionary(c => c.NombreClasificacion!, c => c.ClasificacionKey);
 
             foreach (var socialComment in socialComments)
             {
                 _dwContext.FactOpiniones.Add(new FactOpiniones
                 {
                     FechaKey = int.Parse(socialComment.Fecha.ToString("yyyyMMdd")),
-                    ClienteKey = dimClientes.ContainsKey(int.Parse(socialComment.IdCliente.Substring(1))) ? dimClientes[int.Parse(socialComment.IdCliente.Substring(1))] : -1,
-                    ProductoKey = dimProductos.ContainsKey(int.Parse(socialComment.IdProducto.Substring(1))) ? dimProductos[int.Parse(socialComment.IdProducto.Substring(1))] : -1,
-                    FuenteKey = socialComment.Fuente != null && dimFuentes.ContainsKey(socialComment.Fuente) ? dimFuentes[socialComment.Fuente] : -1,
+                    ClienteKey = dimClientes.ContainsKey(socialComment.IdCliente) ? dimClientes[socialComment.IdCliente] : -1,
+                    ProductoKey = dimProductos.ContainsKey(socialComment.IdProducto) ? dimProductos[socialComment.IdProducto] : -1,
+                    FuenteKey = socialComment.Fuente != null && dimFuentes.ContainsKey(socialComment.Fuente) ? dimFuentes[socialComment.Fuente] : dimFuentes["Unknown"],
                     ClasificacionKey = null,
                     Rating = null,
                     PuntajeSatisfaccion = null,
@@ -149,7 +195,7 @@ namespace ETLWorkerService.Application.Services
                     FechaKey = int.Parse(survey.Fecha.ToString("yyyyMMdd")),
                     ClienteKey = dimClientes.ContainsKey(survey.IdCliente) ? dimClientes[survey.IdCliente] : -1,
                     ProductoKey = dimProductos.ContainsKey(survey.IdProducto) ? dimProductos[survey.IdProducto] : -1,
-                    FuenteKey = survey.Fuente != null && dimFuentes.ContainsKey(survey.Fuente) ? dimFuentes[survey.Fuente] : -1,
+                    FuenteKey = dimFuentes.ContainsKey("Encuesta") ? dimFuentes["Encuesta"] : dimFuentes["Unknown"],
                     ClasificacionKey = survey.Clasificacion != null && dimClasificaciones.ContainsKey(survey.Clasificacion) ? dimClasificaciones[survey.Clasificacion] : -1,
                     Rating = null,
                     PuntajeSatisfaccion = survey.PuntajeSatisfaccion,
@@ -163,9 +209,9 @@ namespace ETLWorkerService.Application.Services
                 _dwContext.FactOpiniones.Add(new FactOpiniones
                 {
                     FechaKey = int.Parse(webReview.Fecha.ToString("yyyyMMdd")),
-                    ClienteKey = dimClientes.ContainsKey(int.Parse(webReview.IdCliente.Substring(1))) ? dimClientes[int.Parse(webReview.IdCliente.Substring(1))] : -1,
-                    ProductoKey = dimProductos.ContainsKey(int.Parse(webReview.IdProducto.Substring(1))) ? dimProductos[int.Parse(webReview.IdProducto.Substring(1))] : -1,
-                    FuenteKey = dimFuentes.ContainsKey("WebReview") ? dimFuentes["WebReview"] : -1,
+                    ClienteKey = dimClientes.ContainsKey(webReview.IdCliente) ? dimClientes[webReview.IdCliente] : -1,
+                    ProductoKey = dimProductos.ContainsKey(webReview.IdProducto) ? dimProductos[webReview.IdProducto] : -1,
+                    FuenteKey = dimFuentes.ContainsKey("WebReview") ? dimFuentes["WebReview"] : dimFuentes["Unknown"],
                     ClasificacionKey = null,
                     Rating = webReview.Rating,
                     PuntajeSatisfaccion = null,

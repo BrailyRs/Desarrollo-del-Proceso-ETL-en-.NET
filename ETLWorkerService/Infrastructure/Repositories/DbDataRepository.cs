@@ -24,7 +24,17 @@ namespace ETLWorkerService.Infrastructure.Repositories
 
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
-            return await _context.Products.ToListAsync();
+            return await _context.Products
+                .Include(p => p.Category)
+                .Select(p => new Product
+                {
+                    IdProducto = p.IdProducto,
+                    Nombre = p.Nombre,
+                    IdCategoria = p.IdCategoria,
+                    Category = p.Category, // Include the navigation property
+                    Categoria = p.Category != null ? p.Category.Nombre : null // Populate Categoria with the name
+                })
+                .ToListAsync();
         }
 
         public Task<IEnumerable<SocialComment>> GetSocialCommentsAsync()
@@ -35,7 +45,21 @@ namespace ETLWorkerService.Infrastructure.Repositories
 
         public async Task<IEnumerable<Survey>> GetSurveysAsync()
         {
-            return await _context.Surveys.ToListAsync();
+            return await _context.Surveys
+                .Include(s => s.Classification)
+                .Select(s => new Survey
+                {
+                    IdOpinion = s.IdOpinion,
+                    IdCliente = s.IdCliente,
+                    IdProducto = s.IdProducto,
+                    Fecha = s.Fecha,
+                    Comentario = s.Comentario,
+                    IdClasificacion = s.IdClasificacion,
+                    Classification = s.Classification, // Include the navigation property
+                    Clasificacion = s.Classification != null ? s.Classification.Nombre : null, // Populate Clasificacion with the name
+                    PuntajeSatisfaccion = s.PuntajeSatisfaccion
+                })
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<WebReview>> GetWebReviewsAsync()

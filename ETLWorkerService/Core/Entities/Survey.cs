@@ -1,3 +1,5 @@
+using ETLWorkerService.Infrastructure.Data;
+
 namespace ETLWorkerService.Core.Entities
 {
     public class Survey
@@ -7,8 +9,9 @@ namespace ETLWorkerService.Core.Entities
         public int IdProducto { get; set; }
         public DateTime Fecha { get; set; }
         public string? Comentario { get; set; }
-        public string? Clasificacion { get; set; }
+        public int? IdClasificacion { get; set; } // Foreign key to Classification
+        public Classification? Classification { get; set; } // Navigation property
+        public string? Clasificacion { get; set; } // This will be populated with Classification.Nombre
         public int PuntajeSatisfaccion { get; set; }
-        public string? Fuente { get; set; }
     }
 }

@@ -24,12 +24,20 @@ namespace ETLWorkerService.Infrastructure.Data
         {
             modelBuilder.Entity<Client>().ToTable("Clientes").HasKey(c => c.IdCliente);
             modelBuilder.Entity<Product>().ToTable("Productos").HasKey(p => p.IdProducto);
+            modelBuilder.Entity<Product>()
+                .HasOne(p => p.Category)
+                .WithMany()
+                .HasForeignKey(p => p.IdCategoria);
             modelBuilder.Entity<Category>().ToTable("Categorias").HasKey(c => c.IdCategoria);
             modelBuilder.Entity<Classification>().ToTable("Clasificaciones").HasKey(c => c.IdClasificacion);
             modelBuilder.Entity<LoadRegister>().ToTable("RegistroCargas").HasKey(lr => lr.IdCarga);
             modelBuilder.Entity<Source>().ToTable("Fuentes").HasKey(s => s.IdFuente);
             modelBuilder.Entity<Comment>().ToTable("Comentarios").HasKey(c => c.IdComment);
             modelBuilder.Entity<Survey>().ToTable("Encuestas").HasKey(s => s.IdOpinion);
+            modelBuilder.Entity<Survey>()
+                .HasOne(s => s.Classification)
+                .WithMany()
+                .HasForeignKey(s => s.IdClasificacion);
             modelBuilder.Entity<WebReview>().ToTable("WebReviews").HasKey(wr => wr.IdReview);
         }
     }

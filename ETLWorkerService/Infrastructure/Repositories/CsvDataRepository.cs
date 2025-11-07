@@ -8,12 +8,21 @@ using System.Threading.Tasks;
 using CsvHelper.Configuration;
 using CsvHelper;
 using System.Linq;
+using ETLWorkerService.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using ETLWorkerService.Core.TypeConverters;
 
 namespace ETLWorkerService.Infrastructure.Repositories
 {
     public class CsvDataRepository : IDataRepository
     {
         private readonly string _basePath = "C:/Users/PC/Desktop/Tareas ITLA/Electiva 1 - Big Data/Unidad 5/csv";
+        private readonly OpinionRContext _rContext;
+
+        public CsvDataRepository(OpinionRContext rContext)
+        {
+            _rContext = rContext;
+        }
 
         public async Task<IEnumerable<Client>> GetClientsAsync()
         {
@@ -49,6 +58,7 @@ namespace ETLWorkerService.Infrastructure.Repositories
             using (var reader = new StreamReader(Path.Combine(_basePath, "social_comments.csv")))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
+                csv.Context.RegisterClassMap<SocialCommentMap>();
                 var records = new List<SocialComment>();
                 await foreach (var record in csv.GetRecordsAsync<SocialComment>())
                 {
@@ -74,16 +84,7 @@ namespace ETLWorkerService.Infrastructure.Repositories
 
         public async Task<IEnumerable<WebReview>> GetWebReviewsAsync()
         {
-            using (var reader = new StreamReader(Path.Combine(_basePath, "web_reviews.csv")))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                var records = new List<WebReview>();
-                await foreach (var record in csv.GetRecordsAsync<WebReview>())
-                {
-                    records.Add(record);
-                }
-                return records;
-            }
+            return await _rContext.WebReviews.ToListAsync();
         }
 
         private sealed class ProductMap : ClassMap<Product>
@@ -93,6 +94,19 @@ namespace ETLWorkerService.Infrastructure.Repositories
                 Map(m => m.IdProducto).Name("IdProducto");
                 Map(m => m.Nombre).Name("Nombre");
                 Map(m => m.Categoria).Name("Categoría");
+            }
+        }
+
+        private sealed class SocialCommentMap : ClassMap<SocialComment>
+        {
+            public SocialCommentMap()
+            {
+                Map(m => m.IdComment).Name("IdComment");
+                Map(m => m.IdCliente).Name("IdCliente").TypeConverter<PrefixedIntConverter>();
+                Map(m => m.IdProducto).Name("IdProducto").TypeConverter<PrefixedIntConverter>();
+                Map(m => m.Fuente).Name("Fuente");
+                Map(m => m.Fecha).Name("Fecha");
+                Map(m => m.Comentario).Name("comentario");
             }
         }
     }
