@@ -1,0 +1,175 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.1.0">
+  <diagram name="Modelo Dimensional" id="star-schema-diagram">
+    <mxGraphModel dx="1367" dy="567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="Modelo Dimensional - Star Schema (Esquema Estrella)" vertex="1">
+          <mxGeometry height="50" width="1000" x="100" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=2;" value="Data Warehouse optimizado para análisis de Business Intelligence" vertex="1">
+          <mxGeometry height="30" width="500" x="350" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-cliente" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=3;" value="" vertex="1">
+          <mxGeometry height="150" width="250" x="100" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-fecha" edge="1" parent="1" source="dim-fecha" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=3;strokeColor=#82b366;startArrow=none;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="fact-table" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="600" y="300" as="sourcePoint" />
+            <mxPoint x="600" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-fecha-label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" value="1:N" vertex="1">
+          <mxGeometry height="25" width="40" x="610" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-cliente" edge="1" parent="1" source="dim-cliente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=3;strokeColor=#82b366;startArrow=none;startFill=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="fact-table" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="350" y="455" as="sourcePoint" />
+            <mxPoint x="450" y="455" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-cliente-label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" value="1:N" vertex="1">
+          <mxGeometry height="25" width="40" x="375" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-producto" edge="1" parent="1" source="dim-producto" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=3;strokeColor=#82b366;startArrow=none;startFill=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="fact-table" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="460" as="sourcePoint" />
+            <mxPoint x="750" y="460" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-producto-label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" value="1:N" vertex="1">
+          <mxGeometry height="25" width="40" x="785" y="435" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-fuente" edge="1" parent="1" source="dim-fuente" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=3;strokeColor=#82b366;startArrow=none;startFill=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="fact-table" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="700" as="sourcePoint" />
+            <mxPoint x="500" y="650" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-fuente-label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" value="1:N" vertex="1">
+          <mxGeometry height="25" width="40" x="450" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-clasificacion" edge="1" parent="1" source="dim-clasificacion" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=3;strokeColor=#82b366;startArrow=none;startFill=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="fact-table" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="820" y="700" as="sourcePoint" />
+            <mxPoint x="600" y="730" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-clasificacion-label" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" value="1:N" vertex="1">
+          <mxGeometry height="25" width="40" x="720" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="metrics-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;align=center;fontSize=11;fontStyle=1;" value="MÉTRICAS&lt;br&gt;─────────────&lt;br&gt;• 731 fechas&lt;br&gt;• 50K clientes&lt;br&gt;• 50K productos&lt;br&gt;• 1 fuente&lt;br&gt;• 1 clasificación&lt;br&gt;• 50K opiniones" vertex="1">
+          <mxGeometry height="150" width="150" x="100" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="benefits-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;align=center;fontSize=11;fontStyle=1;" value="&amp;nbsp;BENEFICIOS&lt;br&gt;──────────────────&lt;br&gt;Queries rápidas&lt;br&gt;Fácil de entender&lt;br&gt;Optimizado para BI&lt;br&gt;Joins eficientes&lt;br&gt;Agregaciones rápidas&lt;br&gt;Escalable" vertex="1">
+          <mxGeometry height="150" width="150" x="950" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="usage-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=center;fontSize=10;fontStyle=1;fontFamily=Courier New;" value="USO TÍPICO&lt;br&gt;────────────────&lt;br&gt;SELECT COUNT(*)&lt;br&gt;FROM FactOpiniones f&lt;br&gt;JOIN DimFecha d&lt;br&gt;  ON f.FechaKey = d.FechaKey&lt;br&gt;WHERE d.Anio = 2024&lt;br&gt;  AND d.Mes = 11&lt;br&gt;GROUP BY d.Dia" vertex="1">
+          <mxGeometry height="130" width="200" x="260" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="etl-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=center;fontSize=11;fontStyle=1;" value="PROCESO ETL&lt;br&gt;────────────────&lt;br&gt;1. Extract&lt;br&gt;   CSV/API/DB → 150K records&lt;br&gt;&lt;br&gt;2. Transform&lt;br&gt;   Source → Dimensional&lt;br&gt;&lt;br&gt;3. Load (Bulk Insert)&lt;br&gt;   Dims + Facts → DW&lt;br&gt;   ~0.81 segundos" vertex="1">
+          <mxGeometry height="170" width="190" x="740" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="G-Sv2FkXvnES-jGWVRQ2-1" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="190" width="250" x="475" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-fecha" parent="G-Sv2FkXvnES-jGWVRQ2-1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=3;" value="" vertex="1">
+          <mxGeometry height="190" width="250" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-fecha-title" parent="G-Sv2FkXvnES-jGWVRQ2-1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" value="DIMFECHA" vertex="1">
+          <mxGeometry height="25" width="150" x="50" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-fecha-subtitle" parent="G-Sv2FkXvnES-jGWVRQ2-1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;" value="Dimensión de Tiempo" vertex="1">
+          <mxGeometry height="15" width="150" x="50" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-fecha-content" parent="G-Sv2FkXvnES-jGWVRQ2-1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" value="&amp;nbsp;FechaKey (PK)&lt;br&gt;─────────────────&lt;br&gt;• Fecha&lt;br&gt;• Dia&lt;br&gt;• Mes&lt;br&gt;• Anio&lt;br&gt;• Trimestre&lt;br&gt;• DiaDeLaSemana&lt;br&gt;• NombreMes&lt;br&gt;• NombreDia" vertex="1">
+          <mxGeometry height="110" width="210" x="20" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="G-Sv2FkXvnES-jGWVRQ2-2" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="300" width="300" x="450" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="fact-table" parent="G-Sv2FkXvnES-jGWVRQ2-2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=4;" value="" vertex="1">
+          <mxGeometry height="300" width="300" as="geometry" />
+        </mxCell>
+        <mxCell id="fact-title" parent="G-Sv2FkXvnES-jGWVRQ2-2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" value="FACTOPINIONES" vertex="1">
+          <mxGeometry height="30" width="200" x="50" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="fact-subtitle" parent="G-Sv2FkXvnES-jGWVRQ2-2" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=2;" value="TABLA DE HECHOS (Metrics &amp; Measures)" vertex="1">
+          <mxGeometry height="20" width="260" x="20" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="fact-content" parent="G-Sv2FkXvnES-jGWVRQ2-2" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;" value="OpinionKey (PK)&lt;br&gt;────────────────────&lt;br&gt;Foreign Keys:&lt;br&gt;- FechaKey (FK)&lt;br&gt;- ClienteKey (FK)&lt;br&gt;- ProductoKey (FK)&lt;br&gt;- FuenteKey (FK)&lt;br&gt;- ClasificacionKey (FK)&lt;br&gt;────────────────────&lt;br&gt;Métricas:&lt;br&gt;- Rating&lt;br&gt;- PuntajeSatisfaccion&lt;br&gt;- SentimentScore" vertex="1">
+          <mxGeometry height="200" width="240" x="30" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="G-Sv2FkXvnES-jGWVRQ2-3" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="120" width="230" x="200" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-fuente" parent="G-Sv2FkXvnES-jGWVRQ2-3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=3;" value="" vertex="1">
+          <mxGeometry height="120" width="230" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-fuente-title" parent="G-Sv2FkXvnES-jGWVRQ2-3" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" value="DIMFUENTE" vertex="1">
+          <mxGeometry height="25" width="150" x="40" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-fuente-subtitle" parent="G-Sv2FkXvnES-jGWVRQ2-3" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;" value="Dimensión de Fuentes" vertex="1">
+          <mxGeometry height="15" width="150" x="40" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-fuente-content" parent="G-Sv2FkXvnES-jGWVRQ2-3" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" value="&amp;nbsp;FuenteKey (PK)&lt;br&gt;────────────────&lt;br&gt;• NombreFuente&lt;br&gt;• TipoFuente" vertex="1">
+          <mxGeometry height="50" width="190" x="20" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="G-Sv2FkXvnES-jGWVRQ2-4" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="120" width="230" x="770" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-clasificacion" parent="G-Sv2FkXvnES-jGWVRQ2-4" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=3;" value="" vertex="1">
+          <mxGeometry height="120" width="230" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-clasificacion-title" parent="G-Sv2FkXvnES-jGWVRQ2-4" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" value="DIMCLASIFICACION" vertex="1">
+          <mxGeometry height="25" width="190" x="20" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-clasificacion-subtitle" parent="G-Sv2FkXvnES-jGWVRQ2-4" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;" value="Dimensión de Clasificación" vertex="1">
+          <mxGeometry height="15" width="190" x="20" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-clasificacion-content" parent="G-Sv2FkXvnES-jGWVRQ2-4" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" value="&amp;nbsp;ClasificacionKey (PK)&lt;br&gt;──────────────────────&lt;br&gt;• NombreClasificacion&lt;br&gt;• Descripcion" vertex="1">
+          <mxGeometry height="50" width="190" x="20" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="G-Sv2FkXvnES-jGWVRQ2-5" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="160" width="250" x="850" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-producto" parent="G-Sv2FkXvnES-jGWVRQ2-5" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=3;" value="" vertex="1">
+          <mxGeometry height="160" width="250" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-producto-title" parent="G-Sv2FkXvnES-jGWVRQ2-5" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" value="DIMPRODUCTO" vertex="1">
+          <mxGeometry height="25" width="150" x="50" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-producto-subtitle" parent="G-Sv2FkXvnES-jGWVRQ2-5" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;" value="Dimensión de Productos" vertex="1">
+          <mxGeometry height="15" width="150" x="50" y="35" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-producto-content" parent="G-Sv2FkXvnES-jGWVRQ2-5" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" value="&amp;nbsp;ProductoKey (PK)&lt;br&gt;───────────────────&lt;br&gt;• IdProducto&lt;br&gt;• NombreProducto&lt;br&gt;• NombreCategoria&lt;br&gt;• IdCategoria&lt;br&gt;• Precio" vertex="1">
+          <mxGeometry height="85" width="210" x="20" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="G-Sv2FkXvnES-jGWVRQ2-6" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="130" width="210" x="120" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-cliente-title" parent="G-Sv2FkXvnES-jGWVRQ2-6" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" value="DIMCLIENTE" vertex="1">
+          <mxGeometry height="25" width="150" x="30" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-cliente-subtitle" parent="G-Sv2FkXvnES-jGWVRQ2-6" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=2;" value="Dimensión de Clientes" vertex="1">
+          <mxGeometry height="15" width="150" x="30" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="dim-cliente-content" parent="G-Sv2FkXvnES-jGWVRQ2-6" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" value="ClienteKey (PK)&lt;br&gt;──────────────────&lt;br&gt;• IdCliente&lt;br&gt;• Nombre&lt;br&gt;• Email&lt;br&gt;• FechaRegistro" vertex="1">
+          <mxGeometry height="75" width="210" y="55" as="geometry" />
+        </mxCell>
+        <mxCell id="G-Sv2FkXvnES-jGWVRQ2-11" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="130" width="660" x="290" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="info-box" parent="G-Sv2FkXvnES-jGWVRQ2-11" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" value="" vertex="1">
+          <mxGeometry height="130" width="660" as="geometry" />
+        </mxCell>
+        <mxCell id="info-title" parent="G-Sv2FkXvnES-jGWVRQ2-11" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" value="CARACTERÍSTICAS DEL STAR SCHEMA" vertex="1">
+          <mxGeometry height="29.55" width="302" x="179" y="11.82" as="geometry" />
+        </mxCell>
+        <mxCell id="info-content" parent="G-Sv2FkXvnES-jGWVRQ2-11" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" value="Tabla de Hechos Central: FactOpiniones con todas las métricas medibles&lt;br&gt;Dimensiones Denormalizadas: Optimizadas para consultas rápidas&lt;br&gt;Relaciones 1:N: Una dimensión puede relacionarse con muchos hechos&lt;br&gt;Surrogate Keys: Claves artificiales (integers) para mejor performance&lt;br&gt;Granularidad: Una opinión por registro en la tabla de hechos" vertex="1">
+          <mxGeometry height="70.9090909090909" width="633.6" x="13.200000000000001" y="47.27272727272727" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

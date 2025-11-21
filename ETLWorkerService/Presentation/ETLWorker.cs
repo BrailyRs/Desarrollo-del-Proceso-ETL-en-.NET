@@ -1,79 +1,83 @@
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using ETLWorkerService.Core.Interfaces;
-using Microsoft.Extensions.Configuration; // Added for configuration access
+﻿using ETLWorkerService.Application.DTOs;
+using ETLWorkerService.Application.Interfaces;
+using ETLWorkerService.Domain.Interfaces;
+using ETLWorkerService.Infrastructure.Factories;
+using Microsoft.Extensions.Options;
 
 namespace ETLWorkerService.Presentation
 {
     public class ETLWorker : BackgroundService
     {
         private readonly ILogger<ETLWorker> _logger;
-        private readonly IServiceScopeFactory _scopeFactory;
-        private readonly Func<IServiceProvider, string, IETLService> _etlServiceFactory; // Inject the factory
+        private readonly IServiceProvider _serviceProvider;
+        private readonly ETLConfiguration _configuration;
 
-        public ETLWorker(ILogger<ETLWorker> logger, IServiceScopeFactory scopeFactory, Func<IServiceProvider, string, IETLService> etlServiceFactory)
+        public ETLWorker(
+            ILogger<ETLWorker> logger,
+            IServiceProvider serviceProvider,
+            IOptions<ETLConfiguration> configuration)
         {
             _logger = logger;
-            _scopeFactory = scopeFactory;
-            _etlServiceFactory = etlServiceFactory;
+            _serviceProvider = serviceProvider;
+            _configuration = configuration.Value;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            try
             {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
+                _logger.LogInformation("╔═══════════════════════════════════════════════════════════════════╗");
+                _logger.LogInformation("║        ETL WORKER SERVICE - MODO AUTOMÁTICO                       ║");
+                _logger.LogInformation("║        Arquitectura Onion + Bulk Insert + Patrones de Diseño     ║");
+                _logger.LogInformation("╚═══════════════════════════════════════════════════════════════════╝");
+                _logger.LogInformation("");
 
-                Console.WriteLine("\nSeleccione el origen de datos para la extracción:");
-                Console.WriteLine("1. CSV");
-                Console.WriteLine("2. API");
-                Console.WriteLine("3. Base de Datos");
-                Console.WriteLine("4. Salir");
-                Console.Write("Ingrese su opción (1, 2, 3 o 4): ");
-
-                string? choice = Console.ReadLine();
-                string selectedDataSourceType = "";
-
-                switch (choice)
+                if (!_configuration.RunOnStartup)
                 {
-                    case "1":
-                        selectedDataSourceType = "csv";
-                        break;
-                    case "2":
-                        selectedDataSourceType = "api";
-                        break;
-                    case "3":
-                        selectedDataSourceType = "db";
-                        break;
-                    case "4":
-                        _logger.LogInformation("Shutting down worker.");
-                        return; // Exit the worker
-                    default:
-                        Console.WriteLine("Opción no válida. Por favor, intente de nuevo.");
-                        await Task.Delay(1000, stoppingToken); // Wait a bit before re-showing menu
-                        continue; // Skip to next iteration of the loop
+                    _logger.LogInformation("RunOnStartup = false. El servicio está en espera.");
+                    _logger.LogInformation("Cambia 'RunOnStartup' a true en appsettings.json para ejecutar automáticamente.");
+                    await Task.Delay(Timeout.Infinite, stoppingToken);
+                    return;
                 }
 
-                using (var scope = _scopeFactory.CreateScope())
-                {
-                    var scopedServiceProvider = scope.ServiceProvider;
-                    try
-                    {
-                        var etlService = _etlServiceFactory(scopedServiceProvider, selectedDataSourceType);
-                        await etlService.ExecuteAsync(stoppingToken);
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        _logger.LogError(ex, "Error al crear el servicio ETL: {Message}", ex.Message);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "Error durante la ejecución del proceso ETL.");
-                    }
-                }
+                _logger.LogInformation($"Fuente de datos configurada: {_configuration.DataSource}");
+                _logger.LogInformation($"Tamaño de batch para Bulk Insert: {_configuration.BulkInsertBatchSize}");
+                _logger.LogInformation($"Modo de ejecución: {_configuration.ExecutionMode}");
+                _logger.LogInformation("");
 
-                Console.WriteLine("\nProceso de ETL completado. Presione cualquier tecla para volver al menú...");
-                Console.ReadKey(); // Wait for user input before re-showing menu
+                using var scope = _serviceProvider.CreateScope();
+                var factory = scope.ServiceProvider.GetRequiredService<DataSourceRepositoryFactory>();
+                var dataSourceRepository = factory.Create(_configuration.DataSource);
+                
+                var transformationService = scope.ServiceProvider.GetRequiredService<ITransformationService>();
+                var dataWarehouseRepository = scope.ServiceProvider.GetRequiredService<IDataWarehouseRepository>();
+                
+                var orchestratorLogger = scope.ServiceProvider.GetRequiredService<ILogger<Application.Services.ETLOrchestrator>>();
+                var orchestrator = new Application.Services.ETLOrchestrator(
+                    orchestratorLogger,
+                    dataSourceRepository,
+                    dataWarehouseRepository,
+                    transformationService);
+
+                await orchestrator.ExecuteETLProcessAsync(stoppingToken);
+
+                _logger.LogInformation("");
+                _logger.LogInformation("╔═══════════════════════════════════════════════════════════════════╗");
+                _logger.LogInformation("║        PROCESO ETL COMPLETADO - Servicio finalizado              ║");
+                _logger.LogInformation("╚═══════════════════════════════════════════════════════════════════╝");
+                _logger.LogInformation("");
+                _logger.LogInformation("Presiona Ctrl+C para cerrar la aplicación.");
+                
+                await Task.Delay(Timeout.Infinite, stoppingToken);
+            }
+            catch (OperationCanceledException)
+            {
+                _logger.LogInformation("Servicio ETL detenido por el usuario.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error crítico en el Worker Service");
+                throw;
             }
         }
     }

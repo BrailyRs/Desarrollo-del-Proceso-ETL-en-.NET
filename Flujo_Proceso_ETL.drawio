@@ -1,0 +1,185 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.0.3">
+  <diagram name="Flujo ETL" id="etl-flow-diagram">
+    <mxGraphModel dx="3264" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Flujo del Proceso ETL - Sistema de Opiniones de Clientes" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="100" y="20" width="1200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Extract → Transform → Load con Arquitectura Onion" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=2;" parent="1" vertex="1">
+          <mxGeometry x="500" y="75" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="extracted-data" value="DATOS EXTRAÍDOS&lt;br&gt;────────────────&lt;br&gt;• 50K Clientes&lt;br&gt;• 50K Productos&lt;br&gt;• 50K Web Reviews&lt;br&gt;────────────────&lt;br&gt;Total: 150K registros&lt;br&gt;Tiempo: ~3.5 seg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=11;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="-130" y="360" width="170" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-extract-transform" value="Raw Data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#82b366;fontSize=12;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="extract-phase" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="280" as="sourcePoint" />
+            <mxPoint x="520" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-transform-load" value="Dimensional Data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#d6b656;fontSize=12;fontStyle=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="load-dims-phase" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="280" as="sourcePoint" />
+            <mxPoint x="940" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="load-facts-phase" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=3;" parent="1" vertex="1">
+          <mxGeometry x="100" y="480" width="1200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="load-facts-title" value="FASE 4: CARGA DE HECHOS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="550" y="490" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="get-keys" value="Obtener Surrogate Keys&lt;br&gt;────────────────────────&lt;br&gt;SELECT IdCliente, ClienteKey&lt;br&gt;FROM DimCliente&lt;br&gt;&lt;br&gt;Dictionary&lt;br&gt;Para relacionar Hechos con Dims" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="540" width="250" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="transform-with-keys" value="Transformar con Keys&lt;br&gt;─────────────────────&lt;br&gt;FactOpiniones.FechaKey =&lt;br&gt;  fechaKeys[opinion.Fecha]&lt;br&gt;&lt;br&gt;FactOpiniones.ClienteKey =&lt;br&gt;  clienteKeys[opinion.IdCliente]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="540" width="250" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="bulk-facts" value="Bulk Insert FactOpiniones&lt;br&gt;───────────────────────────&lt;br&gt;SqlBulkCopy&lt;br&gt;50,000 registros&lt;br&gt;&lt;br&gt;Tiempo: ~0.25 segundos&lt;br&gt;Throughput: 200K rec/seg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="680" y="540" width="250" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="complete-icon" value="PROCESO&lt;br&gt;COMPLETADO&lt;br&gt;──────────&lt;br&gt;Total:&lt;br&gt;~7.31 seg&lt;br&gt;──────────&lt;br&gt;150K records" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;align=center;" parent="1" vertex="1">
+          <mxGeometry x="1010" y="540" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-keys-transform" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#82b366;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="get-keys" target="transform-with-keys" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="600" as="sourcePoint" />
+            <mxPoint x="400" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-transform-bulk" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#d6b656;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="650" y="600" as="sourcePoint" />
+            <mxPoint x="680" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-bulk-complete" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#b85450;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="930" y="600" as="sourcePoint" />
+            <mxPoint x="1010" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="performance-box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="100" y="730" width="1200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="perf-title" value="RESUMEN DE RENDIMIENTO" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="500" y="740" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="perf-extract" value="EXTRACCIÓN&lt;br&gt;────────────&lt;br&gt;~3.5 segundos&lt;br&gt;150K registros&lt;br&gt;&amp;nbsp;CSV/API/DB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="780" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="perf-transform" value="TRANSFORMACIÓN&lt;br&gt;────────────────&lt;br&gt;2.0 segundos&lt;br&gt;100,732 dims&lt;br&gt;Business Logic" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="780" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="perf-load" value="CARGA (BULK INSERT)&lt;br&gt;──────────────────────&lt;br&gt;~0.81 segundos&lt;br&gt;150K+ registros&lt;br&gt;20,520 rec/seg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="680" y="780" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="perf-total" value="TOTAL&lt;br&gt;───────────&lt;br&gt;~7.31 seg&lt;br&gt;150K records&lt;br&gt;Completado" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1010" y="780" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="arch-note" value="ARQUITECTURA: Onion (Clean Architecture) con Patrones Factory, Repository, Strategy, y Dependency Injection&lt;br&gt;OPTIMIZACIÓN: SqlBulkCopy para inserción masiva (100x más rápido que Entity Framework Core)&lt;br&gt;AUTOMÁTICO: Worker Service ejecuta sin intervención manual" style="text;html=1;strokeColor=none;fillColor=#f5f5f5;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=11;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+          <mxGeometry x="100" y="920" width="1200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="legend" value="LEYENDA:&amp;nbsp; Tiempo  | Cantidad  |&amp;nbsp; Alta Performance  |&amp;nbsp; Transformación  | Entrada  | Salida" style="text;html=1;strokeColor=#6c8ebf;fillColor=#dae8fc;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=1;fontSize=10;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="1010" width="600" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="o_elKZL8Z8JIKlj2GBIE-1" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="70" y="160" width="380" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="extract-phase" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=3;" parent="o_elKZL8Z8JIKlj2GBIE-1" vertex="1">
+          <mxGeometry width="380" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="extract-title" value="FASE 1: EXTRACCIÓN&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-1" vertex="1">
+          <mxGeometry x="90" y="10" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="source-csv" value="📄 CSV Files" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-1" vertex="1">
+          <mxGeometry x="20" y="60" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="source-api" value="🌐 API REST" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-1" vertex="1">
+          <mxGeometry x="130" y="60" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="source-db" value="💾 Database" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-1" vertex="1">
+          <mxGeometry x="260" y="60" width="100" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="factory" value="DataSourceFactory&lt;br&gt;(Strategy Pattern)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-1" vertex="1">
+          <mxGeometry x="110" y="150" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-csv-factory" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="o_elKZL8Z8JIKlj2GBIE-1" target="factory" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="70" y="110" as="sourcePoint" />
+            <mxPoint x="120" y="130" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="70" y="130" />
+              <mxPoint x="190" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-api-factory" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="o_elKZL8Z8JIKlj2GBIE-1" target="factory" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="110" as="sourcePoint" />
+            <mxPoint x="170" y="130" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="190" y="130" />
+              <mxPoint x="190" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-db-factory" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="o_elKZL8Z8JIKlj2GBIE-1" target="factory" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="110" as="sourcePoint" />
+            <mxPoint x="230" y="130" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="310" y="130" />
+              <mxPoint x="190" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="o_elKZL8Z8JIKlj2GBIE-3" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="520" y="140" width="380" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="transform-phase" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=3;" parent="o_elKZL8Z8JIKlj2GBIE-3" vertex="1">
+          <mxGeometry width="380" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="transform-title" value="FASE 2: TRANSFORMACIÓN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-3" vertex="1">
+          <mxGeometry x="65" y="10" width="250" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="transform-service" value="TransformationService" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-3" vertex="1">
+          <mxGeometry x="90" y="60" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="transform-dims" value="DIMENSIONES&lt;br&gt;─────────────&lt;br&gt;• DimFecha (731)&lt;br&gt;• DimCliente (50K)&lt;br&gt;• DimProducto (50K)&lt;br&gt;• DimFuente (1)&lt;br&gt;• DimClasificacion (1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;" parent="o_elKZL8Z8JIKlj2GBIE-3" vertex="1">
+          <mxGeometry x="20" y="120" width="140" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="transform-facts" value="HECHOS&lt;br&gt;──────────&lt;br&gt;• FactOpiniones&lt;br&gt;  (50K)&lt;br&gt;&lt;br&gt;Con FK a todas&lt;br&gt;las dimensiones" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;align=center;" parent="o_elKZL8Z8JIKlj2GBIE-3" vertex="1">
+          <mxGeometry x="180" y="120" width="180" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="o_elKZL8Z8JIKlj2GBIE-4" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="1030" y="140" width="400" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="load-dims-phase" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=3;" parent="o_elKZL8Z8JIKlj2GBIE-4" vertex="1">
+          <mxGeometry width="400" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="load-dims-title" value="FASE 3: CARGA DIMENSIONES&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-4" vertex="1">
+          <mxGeometry x="57.89473684210526" y="10" width="263.1578947368421" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="truncate-step" value="DELETE FROM Tables&lt;br&gt;─────────────────────&lt;br&gt;• FactOpiniones&lt;br&gt;• Todas las Dimensiones&lt;br&gt;• DBCC CHECKIDENT (Reset)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=center;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-4" vertex="1">
+          <mxGeometry x="10.002631578947366" y="60" width="210.52631578947367" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="bulk-dims" value="Bulk Insert Dimensiones&lt;br&gt;──────────────────────────&lt;br&gt;SqlBulkCopy&lt;br&gt;Batch Size: 10,000&lt;br&gt;&lt;br&gt;Tiempo: ~0.56 segundos&lt;br&gt;Throughput: 180K rec/seg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-4" vertex="1">
+          <mxGeometry x="94.73263157894738" y="160" width="210.52631578947367" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="dw-icon" value="&amp;nbsp;Data Warehouse&lt;br&gt;(OpinionDW)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=11;fontStyle=1;" parent="o_elKZL8Z8JIKlj2GBIE-4" vertex="1">
+          <mxGeometry x="279.9968421052631" y="65" width="105.26315789473684" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-load-dw" value="INSERT" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=3;strokeColor=#9673a6;fontSize=12;fontStyle=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="o_elKZL8Z8JIKlj2GBIE-4" source="truncate-step" target="dw-icon" edge="1">
+          <mxGeometry x="0.0776" y="-10" relative="1" as="geometry">
+            <mxPoint x="231.57894736842104" y="140" as="sourcePoint" />
+            <mxPoint x="252.6315789473684" y="140" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -37,7 +37,9 @@ namespace ETLWorkerService.Infrastructure.Repositories
             var apiComments = JsonSerializer.Deserialize<List<ComentarioApiDto>>(jsonString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             var socialComments = new List<SocialComment>();
-            foreach (var apiComment in apiComments)
+            if (apiComments != null)
+            {
+                foreach (var apiComment in apiComments)
             {
                 socialComments.Add(new SocialComment
                 {
@@ -48,6 +50,7 @@ namespace ETLWorkerService.Infrastructure.Repositories
                     IdProducto = apiComment.Producto != null ? apiComment.Producto.IdProducto : -1,
                     Fuente = (apiComment.Fuente != null && apiComment.Fuente.Nombre != null) ? apiComment.Fuente.Nombre : "Unknown"
                 });
+            }
             }
             return socialComments;
         }

@@ -60,7 +60,7 @@ GO
 -- Dimension de Clientes
 CREATE TABLE DimCliente (
     ClienteKey INT PRIMARY KEY IDENTITY(1,1),
-    IdCliente INT NOT NULL,
+    IdCliente VARCHAR(20) NOT NULL,
     Nombre NVARCHAR(100) NOT NULL,
     Email NVARCHAR(150) NOT NULL
 );
@@ -69,7 +69,7 @@ GO
 -- Dimension de Productos
 CREATE TABLE DimProducto (
     ProductoKey INT PRIMARY KEY IDENTITY(1,1),
-    IdProducto INT NOT NULL,
+    IdProducto VARCHAR(20) NOT NULL,
     NombreProducto NVARCHAR(100) NOT NULL,
     NombreCategoria NVARCHAR(100) NOT NULL
 );

@@ -1,0 +1,205 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.0.3">
+  <diagram name="Patrones de Diseño" id="design-patterns-diagram">
+    <mxGraphModel dx="1864" dy="773" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Patrones de Diseño Implementados - Sistema ETL" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="100" y="20" width="1200" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="Factory | Repository | Strategy | Dependency Injection | Generic Repository" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=2;" parent="1" vertex="1">
+          <mxGeometry x="400" y="75" width="600" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=3;" parent="1" vertex="1">
+          <mxGeometry x="100" y="130" width="350" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-title" value="FACTORY PATTERN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="175" y="140" width="200" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-subtitle" value="Creación dinámica de objetos" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=2;" parent="1" vertex="1">
+          <mxGeometry x="150" y="170" width="250" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-class" value="DataSourceRepositoryFactory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="200" width="200" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-method" value="Create(string dataSource)&#xa;──────────────────────&#xa;switch(dataSource)&#xa;  case &quot;csv&quot; → CsvRepo&#xa;  case &quot;api&quot; → ApiRepo&#xa;  case &quot;db&quot; → DbRepo" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;fontFamily=Courier New;" parent="1" vertex="1">
+          <mxGeometry x="120" y="250" width="200" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-benefit" value="BENEFICIOS:&lt;br&gt;• Desacoplamiento&lt;br&gt;• Fácil extensión&lt;br&gt;• Config en runtime" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="330" y="200" width="110" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="factory-example" value="EJEMPLO:&lt;br&gt;config.DataSource = &quot;csv&quot;&lt;br&gt;var repo = factory.Create(&quot;csv&quot;);" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=9;align=center;fontFamily=Courier New;" parent="1" vertex="1">
+          <mxGeometry x="330" y="290" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="repository-box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;strokeWidth=3;" parent="1" vertex="1">
+          <mxGeometry x="480" y="130" width="380" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="repository-title" value="REPOSITORY PATTERN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="550" y="140" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="repository-subtitle" value="Abstracción del acceso a datos" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=2;" parent="1" vertex="1">
+          <mxGeometry x="530" y="170" width="280" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="repository-interface" value="IDataSourceRepository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="490" y="200" width="160" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="repository-methods" value="+ GetClientesAsync()&#xa;+ GetProductosAsync()&#xa;+ GetWebReviewsAsync()&#xa;+ GetEncuestasAsync()&#xa;+ GetComentariosAsync()" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;fontFamily=Courier New;" parent="1" vertex="1">
+          <mxGeometry x="490" y="260" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="repo-csv" value="CsvDataSource&#xa;Repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="680" y="200" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="repo-api" value="ApiDataSource&#xa;Repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="680" y="260" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="repo-db" value="DbDataSource&#xa;Repository" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="680" y="320" width="90" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-repo1" value="implements" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;dashed=1;strokeColor=#9673a6;fontSize=9;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="220" as="sourcePoint" />
+            <mxPoint x="680" y="220" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-repo2" value="implements" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;dashed=1;strokeColor=#9673a6;fontSize=9;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="285" as="sourcePoint" />
+            <mxPoint x="680" y="285" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-repo3" value="implements" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;dashed=1;strokeColor=#9673a6;fontSize=9;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="345" as="sourcePoint" />
+            <mxPoint x="680" y="345" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="repository-benefit" value="&amp;nbsp;BENEFICIOS:&lt;br&gt;• Testeable con mocks&lt;br&gt;• Cambio transparente&lt;br&gt;• Reutilizable" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="780" y="200" width="70" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="strategy-box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;strokeWidth=3;" parent="1" vertex="1">
+          <mxGeometry x="900" y="130" width="400" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="strategy-title" value="&amp;nbsp;STRATEGY PATTERN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1015" y="140" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="strategy-subtitle" value="Algoritmos intercambiables" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=2;" parent="1" vertex="1">
+          <mxGeometry x="970" y="170" width="250" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="strategy-context" value="ETLOrchestrator (Context)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="985" y="190" width="160" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="strategy-interface" value="IDataSourceRepository&#xa;(Strategy Interface)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="985" y="235" width="160" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="strategy-csv" value="CSV Strategy&#xa;────────&#xa;Lee archivos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=9;align=center;" parent="1" vertex="1">
+          <mxGeometry x="910" y="310" width="90" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="strategy-api" value="API Strategy&#xa;────────&#xa;Consume REST" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=9;align=center;" parent="1" vertex="1">
+          <mxGeometry x="1020" y="310" width="90" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="strategy-db" value="DB Strategy&#xa;────────&#xa;Query SQL" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=9;align=center;" parent="1" vertex="1">
+          <mxGeometry x="1130" y="310" width="90" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-strat1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;dashed=1;strokeColor=#82b366;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="strategy-interface" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="955" y="295" as="sourcePoint" />
+            <mxPoint x="955" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-strat2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;dashed=1;strokeColor=#82b366;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="strategy-interface" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1065" y="295" as="sourcePoint" />
+            <mxPoint x="1065" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-strat3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;dashed=1;strokeColor=#82b366;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="strategy-interface" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1175" y="295" as="sourcePoint" />
+            <mxPoint x="1175" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="strategy-benefit" value="BENEFICIOS:&lt;br&gt;• Open/Closed Principle&lt;br&gt;• Algoritmos intercambiables&lt;br&gt;• Config en runtime" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=9;align=left;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1190" y="200" width="100" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="generic-box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;strokeWidth=3;" parent="1" vertex="1">
+          <mxGeometry x="90" y="430" width="570" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="generic-title" value="GENERIC REPOSITORY PATTERN" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="440" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="generic-subtitle" value="Operaciones CRUD reutilizables para cualquier entidad" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=2;" parent="1" vertex="1">
+          <mxGeometry x="190" y="470" width="380" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FXdo5U3P5xVnEcZhICO3-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="generic-interface" target="generic-impl" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="generic-interface" value="IGenericRepository&lt;T&gt; where T : class" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="100" y="500" width="260" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="generic-methods" value="+ GetAllAsync()&#xa;+ GetByIdAsync(object id)&#xa;+ AddAsync(T entity)&#xa;+ AddRangeAsync(IEnumerable&lt;T&gt; entities)&#xa;+ UpdateAsync(T entity)&#xa;+ DeleteAsync(T entity)&#xa;+ BulkInsertAsync(IEnumerable&lt;T&gt;, string table)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;fontFamily=Courier New;" parent="1" vertex="1">
+          <mxGeometry x="120" y="550" width="350" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="generic-impl" value="GenericRepository&lt;T&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="400" y="500" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-generic" value="implements" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;strokeWidth=2;dashed=1;strokeColor=#9673a6;fontSize=10;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="520" as="sourcePoint" />
+            <mxPoint x="400" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="generic-benefit" value="BENEFICIOS:&lt;br&gt;• Código reutilizable&lt;br&gt;• DRY Principle&lt;br&gt;• Type-safe&lt;br&gt;• Testeable&lt;br&gt;• Extensible" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="550" y="500" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="generic-example" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;USO:&lt;/span&gt;&lt;/div&gt;IGenericRepository repo;&lt;br&gt;var clientes = await repo.GetAllAsync();&lt;br&gt;await repo.BulkInsertAsync(clientes, &quot;DimCliente&quot;);" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontSize=9;align=center;fontFamily=Courier New;" parent="1" vertex="1">
+          <mxGeometry x="480" y="605" width="170" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="di-box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;strokeWidth=3;" parent="1" vertex="1">
+          <mxGeometry x="690" y="430" width="610" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="di-title" value="DEPENDENCY INJECTION" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="900" y="440" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="di-subtitle" value="Inversión de control para bajo acoplamiento" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=2;" parent="1" vertex="1">
+          <mxGeometry x="850" y="470" width="320" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="di-program" value="Program.cs - DI Container" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="710" y="455" width="180" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="di-code" value="// Contexts&lt;br&gt;builder.Services.AddDbContext();&lt;br&gt;&lt;br&gt;// Repositories&lt;br&gt;builder.Services.AddScoped();&lt;br&gt;builder.Services.AddScoped();&lt;br&gt;&lt;br&gt;// Services&lt;br&gt;builder.Services.AddScoped();&lt;br&gt;&lt;br&gt;// Factory&lt;br&gt;builder.Services.AddScoped();&lt;br&gt;&lt;br&gt;// Worker&lt;br&gt;builder.Services.AddHostedService();" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=9;align=center;fontFamily=Courier New;" parent="1" vertex="1">
+          <mxGeometry x="710" y="500" width="380" height="185" as="geometry" />
+        </mxCell>
+        <mxCell id="di-benefit" value="BENEFICIOS:&lt;br&gt;• Bajo acoplamiento&lt;br&gt;• Testeable&lt;br&gt;• Gestión automática&lt;br&gt;  del ciclo de vida&lt;br&gt;• SOLID Principles" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1110" y="500" width="170" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="di-scopes" value="SCOPES:&lt;br&gt;• Scoped - Por request&lt;br&gt;• Singleton - Una instancia&lt;br&gt;• Transient - Nueva cada vez" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;align=center;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="1110" y="610" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="summary-box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="100" y="720" width="1200" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="summary-title" value="RESUMEN DE PATRONES IMPLEMENTADOS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="500" y="730" width="400" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="summary-content" value="&amp;nbsp;FACTORY: Crea repositorios dinámicamente según configuración (CSV/API/DB)&lt;br&gt;REPOSITORY: Abstrae el acceso a datos, permite cambiar implementación sin afectar lógica de negocio&lt;br&gt;STRATEGY: Algoritmos de extracción intercambiables en tiempo de ejecución&lt;br&gt;GENERIC REPOSITORY: Operaciones CRUD reutilizables con generics de C#&lt;br&gt;DEPENDENCY INJECTION: Inversión de control con contenedor DI de .NET, gestión automática del ciclo de vida&lt;br&gt;&lt;br&gt;RESULTADO: Código modular, testeable, mantenible y extensible siguiendo principios SOLID&lt;div&gt;&amp;nbsp;BONUS: Bulk Insert con SqlBulkCopy para performance ultra-rápido (100x más rápido que EF Core)&lt;/div&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;" parent="1" vertex="1">
+          <mxGeometry x="120" y="770" width="1160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="conn-arrow1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=2;strokeColor=#666666;dashed=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="factory-box" target="repository-box" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="450" y="180" as="sourcePoint" />
+            <mxPoint x="480" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="conn-label2" value="implementa" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontStyle=2;" parent="1" vertex="1">
+          <mxGeometry x="795" y="150" width="60" height="15" as="geometry" />
+        </mxCell>
+        <mxCell id="conn-arrow2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;strokeWidth=2;strokeColor=#666666;dashed=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="repository-box" target="strategy-box" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="860" y="180" as="sourcePoint" />
+            <mxPoint x="890" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

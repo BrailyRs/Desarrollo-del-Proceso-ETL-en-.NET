@@ -1,0 +1,182 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.1.1">
+  <diagram name="Arquitectura ETL SOA" id="arquitectura-etl-soa">
+    <mxGraphModel dx="1367" dy="567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="titulo" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" value="Arquitectura Orientada a Servicios - Proceso ETL Escalable" vertex="1">
+          <mxGeometry height="40" width="630" x="270" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="capa-fuentes" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;verticalAlign=top;" value="CAPA DE FUENTES DE DATOS" vertex="1">
+          <mxGeometry height="120" width="1080" x="40" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="fuente1" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;" value="Base de Datos&lt;br&gt;Relacional&lt;br&gt;(SQLSever)" vertex="1">
+          <mxGeometry height="80" width="120" x="140" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="fuente2" parent="1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" value="APIs REST&lt;br&gt;Externas" vertex="1">
+          <mxGeometry height="80" width="130" x="290" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="fuente3" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;fillColor=#e1d5e7;strokeColor=#9673a6;" value="Archivos&lt;br&gt;CSV" vertex="1">
+          <mxGeometry height="80" width="120" x="445" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="fuente6" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;strokeColor=#666666;" value="Data Lake&lt;br&gt;(S3/HDFS)" vertex="1">
+          <mxGeometry height="80" width="120" x="730" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="capa-extraccion" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1;verticalAlign=top;" value="CAPA DE EXTRACCIÓN (Extract)" vertex="1">
+          <mxGeometry height="120" width="1080" x="40" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-extractor" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontStyle=1" value="Servicio Extractor" vertex="1">
+          <mxGeometry height="60" width="140" x="180" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-validacion" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontStyle=1" value="Servicio Validación&lt;br&gt;de Datos" vertex="1">
+          <mxGeometry height="60" width="140" x="360" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-conectores" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontStyle=1" value="Servicio de&lt;br&gt;Conectores" vertex="1">
+          <mxGeometry height="60" width="140" x="720" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-metadatos" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;fontStyle=1" value="Servicio de&lt;br&gt;Metadatos" vertex="1">
+          <mxGeometry height="60" width="140" x="920" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow1" edge="1" parent="1" source="fuente1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;" target="servicio-extractor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="230" />
+              <mxPoint x="250" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow2" edge="1" parent="1" source="fuente2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;" target="servicio-extractor">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow3" edge="1" parent="1" source="fuente3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;" target="servicio-validacion">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-datalake" edge="1" parent="1" source="fuente6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;" target="servicio-conectores">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow-metadata1" edge="1" parent="1" source="fuente1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;" target="servicio-metadatos">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="50" />
+              <mxPoint x="990" y="50" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arrow-metadata2" edge="1" parent="1" source="fuente6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;dashed=1;" target="servicio-metadatos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="capa-transformacion" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;fontStyle=1;verticalAlign=top;" value="CAPA DE TRANSFORMACIÓN (Transform)" vertex="1">
+          <mxGeometry height="140" width="1080" x="40" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-limpieza" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" value="Servicio de&lt;br&gt;Limpieza de Datos" vertex="1">
+          <mxGeometry height="60" width="130" x="100" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-normalizacion" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" value="Servicio de&lt;br&gt;Normalización" vertex="1">
+          <mxGeometry height="60" width="130" x="270" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-enriquecimiento" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" value="Servicio de&lt;br&gt;Enriquecimiento" vertex="1">
+          <mxGeometry height="60" width="130" x="440" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-agregacion" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" value="Servicio de&lt;br&gt;Agregación" vertex="1">
+          <mxGeometry height="60" width="130" x="610" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-reglas" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" value="Motor de Reglas&lt;br&gt;de Negocio" vertex="1">
+          <mxGeometry height="60" width="130" x="780" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-calidad" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" value="Servicio de&lt;br&gt;Calidad de Datos" vertex="1">
+          <mxGeometry height="60" width="130" x="950" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow6" edge="1" parent="1" source="servicio-extractor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" target="servicio-limpieza">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow7" edge="1" parent="1" source="servicio-validacion" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" target="servicio-normalizacion">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow8" edge="1" parent="1" source="servicio-conectores" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;" target="servicio-enriquecimiento">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="capa-carga" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=14;fontStyle=1;verticalAlign=top;" value="CAPA DE CARGA (Load)" vertex="1">
+          <mxGeometry height="100" width="1080" x="40" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-carga" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" value="Servicio de Carga&lt;br&gt;Batch" vertex="1">
+          <mxGeometry height="50" width="140" x="180" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-streaming-load" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" value="Servicio de Carga&lt;br&gt;Streaming" vertex="1">
+          <mxGeometry height="50" width="140" x="360" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-incremental" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" value="Servicio de Carga&lt;br&gt;Incremental" vertex="1">
+          <mxGeometry height="50" width="140" x="620" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio-indexacion" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1" value="Servicio de&lt;br&gt;Indexación" vertex="1">
+          <mxGeometry height="50" width="140" x="800" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow9" edge="1" parent="1" source="servicio-limpieza" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;" target="servicio-carga">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow10" edge="1" parent="1" source="servicio-enriquecimiento" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;" target="servicio-streaming-load">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow11" edge="1" parent="1" source="servicio-agregacion" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;fillColor=#ffe6cc;strokeColor=#d79b00;" target="servicio-incremental">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="capa-destinos" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=14;fontStyle=1;verticalAlign=top;" value="CAPA DE DESTINOS" vertex="1">
+          <mxGeometry height="120" width="1080" x="40" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="destino1" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;" value="Data Warehouse&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="140" x="180" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="destino2" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;" value="Data Mart&lt;br&gt;(Analytics)" vertex="1">
+          <mxGeometry height="80" width="130" x="365" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="destino3" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;" value="Elasticsearch&lt;br&gt;(Búsqueda)" vertex="1">
+          <mxGeometry height="80" width="130" x="625" y="747" as="geometry" />
+        </mxCell>
+        <mxCell id="destino4" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f8cecc;strokeColor=#b85450;" value="OLAP Cube&lt;br&gt;(Analysis Services)" vertex="1">
+          <mxGeometry height="80" width="140" x="800" y="747" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow12" edge="1" parent="1" source="servicio-carga" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" target="destino1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow13" edge="1" parent="1" source="servicio-streaming-load" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" target="destino2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow14" edge="1" parent="1" source="servicio-incremental" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" target="destino3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="arrow15" edge="1" parent="1" source="servicio-indexacion" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=2;fillColor=#f8cecc;strokeColor=#b85450;" target="destino4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="message-queue" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=11" value="MESSAGE QUEUE&lt;br&gt;(RabbitMQ / Apache Kafka)" vertex="1">
+          <mxGeometry height="90" width="90" x="560" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="leyenda" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;verticalAlign=top;fontColor=#333333;" value="CARACTERÍSTICAS CLAVE:&lt;br&gt;✓ Escalabilidad Horizontal&lt;br&gt;✓ Microservicios Independientes&lt;br&gt;✓ Comunicación Asíncrona&lt;br&gt;✓ Tolerancia a Fallos&lt;br&gt;✓ Procesamiento Distribuido" vertex="1">
+          <mxGeometry height="100" width="280" x="40" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="tecnologias" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;verticalAlign=top;fontColor=#333333;" value="TECNOLOGÍAS SUGERIDAS:&lt;br&gt;• Orquestación: Apache Airflow&lt;br&gt;• Streaming: Apache Kafka&lt;br&gt;• Procesamiento: Apache Spark&lt;br&gt;• Contenedores: Docker/Kubernetes&lt;br&gt;• API Gateway: Kong/AWS API Gateway" vertex="1">
+          <mxGeometry height="100" width="300" x="360" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="patrones" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;align=left;verticalAlign=top;fontColor=#333333;" value="PATRONES SOA APLICADOS:&lt;br&gt;• Service Registry &amp; Discovery&lt;br&gt;• Circuit Breaker&lt;br&gt;• Event-Driven Architecture&lt;br&gt;• CQRS (Command Query Separation)&lt;br&gt;• Saga Pattern para transacciones" vertex="1">
+          <mxGeometry height="100" width="300" x="700" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="dm-HOanvmjwDM80RdNsN-4" edge="1" parent="1" source="servicio-extractor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;strokeWidth=1;dashed=1;fillColor=#fff2cc;strokeColor=#d6b656;startArrow=classic;startFill=1;" target="message-queue">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="285" y="347" />
+            </Array>
+            <mxPoint x="790" y="462" as="sourcePoint" />
+            <mxPoint x="1163" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="IavAJ_HRRcj6MpBM7H1X-5" edge="1" parent="1" source="message-queue" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=1;dashed=1;fillColor=#fff2cc;strokeColor=#d6b656;startArrow=classic;startFill=1;" target="servicio-metadatos">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="990" y="347" />
+            </Array>
+            <mxPoint x="540" y="350" as="sourcePoint" />
+            <mxPoint x="828" y="367" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
