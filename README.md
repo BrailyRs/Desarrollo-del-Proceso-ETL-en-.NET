@@ -30,9 +30,20 @@ Este proyecto presenta una **Arquitectura Orientada a Servicios (SOA)** diseñad
 
 La arquitectura se encuentra documentada en el archivo `arquitectura_etl_soa.drawio` y puede ser visualizada usando [Draw.io](https://app.diagrams.net/).
 
+### Arquitectura ETL SOA
+
+![Arquitectura ETL SOA](img/arquitectura_etl_soa.drawio.png)
+
+### Arquitectura Onion
+
+![Arquitectura Onion](img/Arquitectura_Onion_NEW.drawio.png)
+
+
 ---
 
 ## Diagrama de Flujo del Proceso ETL
+
+![Flujo del Proceso ETL](img/Flujo_Proceso_ETL.drawio.png)
 
 ### Flujo Detallado
 
@@ -185,6 +196,10 @@ graph TD
 | **Elasticsearch** | Motor de Búsqueda | Búsquedas full-text y analytics |
 | **OLAP Cube** | Analysis Services | Análisis multidimensional |
 | **Cache (Redis)** | In-Memory DB | Acceso rápido a datos frecuentes |
+
+#### Modelo Dimensional Star Schema
+
+![Modelo Dimensional Star Schema](img/Modelo_Dimensional_Star_Schema.drawio.png)
 
 ### 6. Servicios Transversales
 
@@ -1170,6 +1185,8 @@ if __name__ == "__main__":
 
 ## Patrones de Diseño Aplicados
 
+![Patrones de Diseño](img/Patrones_Diseno.drawio.png)
+
 ### 1. **Adapter Pattern** (Capa de Extracción)
 - Abstrae las diferencias entre fuentes de datos heterogéneas
 - Permite agregar nuevas fuentes sin modificar código existente
@@ -1382,13 +1399,7 @@ def test_sql_extractor():
 - [Microservices Patterns by Chris Richardson](https://microservices.io/patterns/index.html)
 
 ---
-
-## Equipo y Contribuciones
-
-Este proyecto fue desarrollado como parte del programa de **Electiva 1 - Big Data** en ITLA.
-
 ### Autor
 - **Nombre**: Braily
 - **Fecha**: 21 de Noviembre, 2024
-
 ---
